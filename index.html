@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Website</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body class="bg-gray-100 text-gray-800">
     <header class="bg-blue-600 text-white py-4">
@@ -19,14 +20,15 @@
             <p class="text-gray-700">
                 This is a simple and clean website built using Tailwind CSS. Tailwind makes it easy to style your website with utility-first classes.
             </p>
+            <img src="https://via.placeholder.com/400x200" alt="Placeholder Image" class="mt-4 rounded-lg shadow-md">
         </section>
 
         <section class="bg-white shadow-md rounded-lg p-6 mt-6">
             <h2 class="text-2xl font-semibold mb-4">Our Services</h2>
             <ul class="list-disc list-inside text-gray-700">
-                <li>Web Development</li>
-                <li>Cloud Computing</li>
-                <li>Technical Support</li>
+                <li><i class="fas fa-code text-blue-600"></i> Web Development</li>
+                <li><i class="fas fa-cloud text-blue-600"></i> Cloud Computing</li>
+                <li><i class="fas fa-headset text-blue-600"></i> Technical Support</li>
             </ul>
         </section>
     </main>
@@ -36,8 +38,8 @@
             <p>&copy; <span id="year"></span> Simple Website. All rights reserved.</p>
         </div>
     </footer>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
 </body>
-            <script>
-                document.getElementById('year').textContent = new Date().getFullYear();
-            </script>
 </html>
