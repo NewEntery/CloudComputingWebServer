@@ -1,19 +1,35 @@
-const express = require("express");
+// server.js (Backend)
+const express = require('express');
+const mysql = require('mysql');
+const cors = require('cors');
 const app = express();
 const port = 3000;
 
-const products = [
-    { id: 1, name: "Laptop Premium", price: 1299.99, image: "https://bucketcloudcomputing01.s3.ap-southeast-1.amazonaws.com/electronics/OIP.jpg" },
-    { id: 2, name: "Smartphone", price: 799.50, image: "https://bucketcloudcomputing01.s3.ap-southeast-1.amazonaws.com/electronics/OIP+(1).jpg" },
-    { id: 3, name: "Headphones", price: 149.99, image: "https://bucketcloudcomputing01.s3.ap-southeast-1.amazonaws.com/electronics/OIP+(2).jpg" }
-];
+// Enable CORS for EC2 frontend
+app.use(cors());
 
-app.get("/api/products", (req, res) => {
-    res.json(products);
+// Set up database connection (MySQL in this example)
+const db = mysql.createConnection({
+  host: 'database-2.c142g8o62se8.ap-southeast-1.rds.amazonaws.com', // Ganti dengan host database kamu
+  user: 'admin', // Ganti dengan username database
+  password: 'Mrikzixbox1', // Ganti dengan password database
+  database: 'ecommerce' // Ganti dengan nama database
 });
 
-app.use(express.static("public")); // Serve static files from the "public" directory
+db.connect((err) => {
+  if (err) throw err;
+  console.log('Connected to database');
+});
+
+// Endpoint untuk mengambil data dari database
+app.get('/data', (req, res) => {
+  const query = 'SELECT * FROM products'; // Ganti dengan query yang sesuai
+  db.query(query, (err, results) => {
+    if (err) throw err;
+    res.json(results);
+  });
+});
 
 app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+  console.log(`Server running at http://localhost:${port}`);
 });
