@@ -1,21 +1,39 @@
-name: Deploy to EC2
+name: Deploy to AWS EC2
 
 on:
   push:
     branches:
-      - main
+      - main # bisa ganti ke branch yang kamu mau
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ec2-user
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            cd /usr/share/nginx/CloudComputingWebServer
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+
+    - name: Deploy Frontend and Backend
+      run: |
+        ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} << 'EOF'
+          cd /var/www/html/
+          git pull origin main
+          npm install # kalau pakai framework js
+          npm run build # sesuaikan kalau butuh build
+          sudo cp -r build/* /var/www/html/FrontEnd # sesuaikan ke path nginx
+          sudo systemctl reload nginx
+          echo "SSH to Backend Instance..."
+          ssh -i Tes.pem ec2-user@30-0-2-11 << 'INNER_EOF'
+            cd CloudComputingWebServer
             git pull origin main
-            sudo systemctl restart nginx
+            npm install
+            pm2 restart all
+          INNER_EOF
+        EOF
