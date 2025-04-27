@@ -12,7 +12,7 @@ app.use(cors());
 const db = mysql.createConnection({
   host: 'database-2.c142g8o62se8.ap-southeast-1.rds.amazonaws.com', // Ganti dengan host database kamu
   user: 'admin', // Ganti dengan username database
-  password: 'Mrikzixbox1', // Ganti dengan password database
+  password: 'Mrizkixbox1', // Ganti dengan password database
   database: 'ecommerce' // Ganti dengan nama database
 });
 
