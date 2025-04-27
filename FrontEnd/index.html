@@ -26,8 +26,10 @@
 
       // Buat elemen img untuk menampilkan gambar
       const img = document.createElement('img');
-      img.src = item.image_url; // Asumsikan nama fieldnya >      img.alt = item.name; // Penting untuk aksesibilitas
-      img.style.maxWidth = '100px'; // Batasi ukuran gambar>      div.appendChild(img);
+      img.src = item.image_url;       
+      img.alt = item.name; // Penting untuk aksesibilitas
+      img.style.maxWidth = '100px'; 
+      div.appendChild(img);
 
       // Buat elemen p untuk menampilkan nama
       const namePara = document.createElement('p');
