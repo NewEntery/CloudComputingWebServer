@@ -27,8 +27,9 @@ jobs:
           sudo git init
           
           sudo git remote add origin https://github.com/NewEntery/CloudComputingWebServer.git
-
+          sudo git pull origin main
           sudo systemctl reload httpd 
+        EOF
           echo "SSH to Backend Instance..."
           ssh -i ~/Tes.pem ec2-user@30.0.2.11 << 'INNER_EOF'
             cd CloudComputingWebServer
@@ -36,4 +37,4 @@ jobs:
             npm install
             pm2 restart all
           INNER_EOF
-        EOF
+        
