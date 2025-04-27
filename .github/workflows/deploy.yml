@@ -24,11 +24,9 @@ jobs:
       run: |
         ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} << 'EOF'
           cd /var/www/html/
-          git pull origin main
-          npm install # kalau pakai framework js
-          npm run build # sesuaikan kalau butuh build
-          sudo cp -r build/* /var/www/html/FrontEnd # sesuaikan ke path nginx
-          sudo systemctl reload nginx
+          git init
+          git remote add origin https://github.com/NewEntery/CloudComputingWebServer.git
+          sudo systemctl reload nginx 
           echo "SSH to Backend Instance..."
           ssh -i Tes.pem ec2-user@30-0-2-11 << 'INNER_EOF'
             cd CloudComputingWebServer
