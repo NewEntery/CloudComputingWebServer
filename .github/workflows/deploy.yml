@@ -24,11 +24,13 @@ jobs:
       run: |
         ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} << 'EOF'
           cd /var/www/html/
-          git init
-          git remote add origin https://github.com/NewEntery/CloudComputingWebServer.git
-          sudo systemctl reload nginx 
+          sudo git init
+          
+          sudo git remote add origin https://github.com/NewEntery/CloudComputingWebServer.git
+
+          sudo systemctl reload httpd 
           echo "SSH to Backend Instance..."
-          ssh -i Tes.pem ec2-user@30-0-2-11 << 'INNER_EOF'
+          ssh -i ~/Tes.pem ec2-user@30-0-2-11 << 'INNER_EOF'
             cd CloudComputingWebServer
             git pull origin main
             npm install
