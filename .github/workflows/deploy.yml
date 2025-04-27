@@ -30,9 +30,9 @@ jobs:
 
           sudo systemctl reload httpd 
           echo "SSH to Backend Instance..."
-          ssh -i ~/Tes.pem ec2-user@30-0-2-11 << 'INNER_EOF'
+          ssh -i ~/Tes.pem ec2-user@30.0.2.11 << 'INNER_EOF'
             cd CloudComputingWebServer
-            git pull origin main
+            sudo git pull origin main
             npm install
             pm2 restart all
           INNER_EOF
