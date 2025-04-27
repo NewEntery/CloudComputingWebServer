@@ -33,6 +33,7 @@ jobs:
           echo "SSH to Backend Instance..."
           ssh -i ~/Tes.pem ec2-user@30.0.2.11 << 'INNER_EOF'
             cd CloudComputingWebServer
+            sudo yum install git -y
             sudo git pull origin main
             npm install
             pm2 restart all
